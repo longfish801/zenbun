@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://longfish801.github.io/zenbun/searchinfo"
+    xmlns:gnc="http://longfish801.github.io/zenbun/searchinfo"
+    elementFormDefault="qualified">
+
+	<xsd:element name="searchInfo">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="dirCond" type="gnc:dirCondType"/>
+				<xsd:element name="fileCond" type="gnc:fileCondType" minOccurs="0"/>
+				<xsd:element name="textCond" type="gnc:textCondType" minOccurs="0"/>
+				<xsd:element name="replaceCond" type="gnc:replaceCondType" minOccurs="0"/>
+				<xsd:element name="results" type="gnc:resultsType" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="dirCondType">
+		<xsd:sequence>
+			<xsd:element name="baseDir" type="xsd:normalizedString"/>
+			<xsd:element name="includes" type="gnc:includesType" minOccurs="0"/>
+			<xsd:element name="excludes" type="gnc:excludesType" minOccurs="0"/>
+			<xsd:element name="subFileNum" type="gnc:maxminType" minOccurs="0"/>
+			<xsd:element name="subDirNum" type="gnc:maxminType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="fileCondType">
+		<xsd:sequence>
+			<xsd:element name="includes" type="gnc:includesType" minOccurs="0"/>
+			<xsd:element name="excludes" type="gnc:excludesType" minOccurs="0"/>
+			<xsd:element name="encodings" type="gnc:encodingsType" minOccurs="0"/>
+			<xsd:element name="size" type="gnc:maxminType" minOccurs="0"/>
+			<xsd:element name="lastModified" type="gnc:fromtoType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="encodingsType">
+		<xsd:sequence>
+			<xsd:element name="encoding" type="gnc:encodingType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="encodingType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:normalizedString">
+				<xsd:attribute name="mask" type="xsd:token" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="textCondType">
+		<xsd:sequence>
+			<xsd:element name="keywords" type="gnc:keywordsType"/>
+			<xsd:element name="isRex" type="gnc:isRexType" minOccurs="0"/>
+			<xsd:element name="disposeNum" type="xsd:long" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="keywordsType">
+		<xsd:sequence>
+			<xsd:element name="keyword" type="xsd:normalizedString" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="isAnd" type="xsd:boolean" default="true"/>
+	</xsd:complexType>
+	<xsd:complexType name="isRexType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:boolean">
+				<xsd:attribute name="sensitiveCase" type="xsd:boolean" default="true"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="replaceCondType">
+		<xsd:sequence>
+			<xsd:element name="replacement" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="resultsType">
+		<xsd:sequence>
+			<xsd:element name="dir" type="gnc:dirType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="dirNum" type="xsd:long" use="required"/>
+		<xsd:attribute name="fileNum" type="xsd:long" use="required"/>
+		<xsd:attribute name="hitNum" type="xsd:long" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="dirType">
+		<xsd:sequence>
+			<xsd:element name="file" type="gnc:fileType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="path" type="xsd:normalizedString" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="fileType">
+		<xsd:sequence>
+			<xsd:element name="result" type="gnc:resultType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="path" type="xsd:normalizedString" use="required"/>
+		<xsd:attribute name="encoding" type="xsd:normalizedString" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="resultType">
+		<xsd:sequence>
+			<xsd:element name="paragraph" type="xsd:normalizedString"/>
+			<xsd:element name="group" type="gnc:groupType" maxOccurs="unbounded"/>
+			<xsd:element name="replaced" type="xsd:normalizedString"/>
+		</xsd:sequence>
+		<xsd:attribute name="lineNum" type="xsd:long" use="required"/>
+		<xsd:attribute name="colNum" type="xsd:long" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="groupType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:normalizedString">
+				<xsd:attribute name="index" type="xsd:int" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="includesType">
+		<xsd:sequence>
+			<xsd:element name="include" type="xsd:normalizedString" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="excludesType">
+		<xsd:sequence>
+			<xsd:element name="exclude" type="xsd:normalizedString" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="maxminType">
+		<xsd:attribute name="max" type="xsd:long" default="-1"/>
+		<xsd:attribute name="min" type="xsd:long" default="-1"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="fromtoType">
+		<xsd:attribute name="from" type="xsd:dateTime"/>
+		<xsd:attribute name="to" type="xsd:dateTime"/>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<child>テスト</child>
+	<jar>
+		<path>lib1</path>
+		<path>lib2</path>
+		<path>lib3</path>
+	</jar>
+	<properties>
+		<property key="key1">val1</property>
+		<property key="key2">val2
+		<property key="key3">val3</property>
+	</properties>
+</root>

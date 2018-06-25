@@ -1,0 +1,38 @@
+/*
+ * build.gradle
+ *
+ * Copyright (C) io.github.longfish801 All Rights Reserved.
+ */
+
+version = '0.1.00';
+
+configurations {
+	jaxb
+}
+
+dependencies {
+	compile 'ch.qos.logback:logback-classic:1.0.12'
+	compile 'io.github.longfish801:shared:0.1.00';
+	compile 'org.apache.ant:ant:1.9.4';
+	compile 'org.apache.commons:commons-lang3:3.3.2';
+	compile 'org.codehaus.groovy:groovy-all:2.4.11';
+	compile 'org.slf4j:slf4j-api:1.7.5';
+	testCompile 'junit:junit:4.11';
+	jaxb 'com.sun.xml.bind:jaxb-core:2.2.11';
+	jaxb 'com.sun.xml.bind:jaxb-xjc:2.2.11';
+	testCompile 'org.spockframework:spock-core:1.0-groovy-2.4';
+	testCompile fileTree(dir: 'lib', include: '*.jar');
+}
+
+// コンパイル前にXML SchemaからJavaソースを生成します
+task delsrcJaxbSearchinfo(type: Delete) {
+	delete(fileTree(dir: 'src/main/java/io/github/longfish801/zenbun/searchinfo', include: '*.java'));
+}
+task mksrcJaxbSearchinfo(type: JavaExec, dependsOn: delsrcJaxbSearchinfo) {
+	classpath configurations.jaxb; main = 'com.sun.tools.xjc.XJCFacade'; systemProperty 'file.encoding', 'UTF-8';
+	args('-d', 'src/main/java', 'src/main/resources/io/github/longfish801/zenbun/searchinfo/SearchInfo.xsd');
+}
+task mksrc(dependsOn: [ mksrcJaxbSearchinfo ] ) {
+	doLast { println 'make source files.' }
+}
+compileJava.dependsOn 'mksrc';
