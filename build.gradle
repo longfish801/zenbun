@@ -29,6 +29,7 @@ task delsrcJaxbSearchinfo(type: Delete) {
 	delete(fileTree(dir: 'src/main/java/io/github/longfish801/zenbun/searchinfo', include: '*.java'));
 }
 task mksrcJaxbSearchinfo(type: JavaExec, dependsOn: delsrcJaxbSearchinfo) {
+	doFirst { file('src/main/java').mkdir() }
 	classpath configurations.jaxb; main = 'com.sun.tools.xjc.XJCFacade'; systemProperty 'file.encoding', 'UTF-8';
 	args('-d', 'src/main/java', 'src/main/resources/io/github/longfish801/zenbun/searchinfo/SearchInfo.xsd');
 }
@@ -36,3 +37,4 @@ task mksrc(dependsOn: [ mksrcJaxbSearchinfo ] ) {
 	doLast { println 'make source files.' }
 }
 compileJava.dependsOn 'mksrc';
+clean.dependsOn 'delsrcJaxbSearchinfo';
