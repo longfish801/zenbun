@@ -36,3 +36,4 @@ task mksrc(dependsOn: [ mksrcJaxbSearchinfo ] ) {
 	doLast { println 'make source files.' }
 }
 compileJava.dependsOn 'mksrc';
+clean.dependsOn 'delsrcJaxbSearchinfo';
