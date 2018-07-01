@@ -4,7 +4,7 @@
  * Copyright (C) io.github.longfish801 All Rights Reserved.
  */
 
-version = '0.1.00';
+version = '0.2.00';
 
 configurations {
 	jaxb
