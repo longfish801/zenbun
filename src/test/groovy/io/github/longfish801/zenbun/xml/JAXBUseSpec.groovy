@@ -6,13 +6,10 @@
 package io.github.longfish801.zenbun.xml;
 
 import groovy.util.logging.Slf4j;
-
-import io.github.longfish801.shared.util.ClassDirectory;
-import io.github.longfish801.shared.lang.ExistResource;
+import io.github.longfish801.shared.lang.ExchangeResource;
+import io.github.longfish801.shared.lang.PackageDirectory;
 import io.github.longfish801.shared.xml.root.*;
-
 import org.w3c.dom.Document;
-
 import spock.lang.Specification;
 
 /**
@@ -24,14 +21,12 @@ import spock.lang.Specification;
 @Slf4j('LOG')
 class JAXBUseSpec extends Specification {
 	/** ファイル入出力のテスト用フォルダ */
-	private static final File testDir = new ClassDirectory('src/test/resources').getDeepDir(JAXBUseSpec.class);
-	/** リソース参照用インスタンス */
-	private ExistResource existResource = new ExistResource(JAXBUseSpec.class);
+	private static final File testDir = PackageDirectory.deepDir(new File('src/test/resources'), JAXBUseSpec.class);
 	
 	def 'Documentを取得できること'(){
 		given:
 		InputStream xmlStream = new FileInputStream(new File(testDir, '001.xml'));
-		InputStream xsdStream = existResource.stream('.xsd');
+		InputStream xsdStream = ExchangeResource.stream(JAXBUseSpec.class, '.xsd');
 		
 		when:
 		Root root = (new JAXBUse(Root.class, xsdStream).unmarshal(xmlStream)) as Root;
@@ -44,7 +39,7 @@ class JAXBUseSpec extends Specification {
 		given:
 		String expectedErrMsg = $/【エラー】12行目 24文字目 内容:予期しない要素(URI:""、ローカル:"property")です。/$;
 		InputStream xmlStream = new FileInputStream(new File(testDir, '002.xml'));
-		InputStream xsdStream = existResource.stream('.xsd');
+		InputStream xsdStream = ExchangeResource.stream(JAXBUseSpec.class, '.xsd');
 		JAXBUse parser = new JAXBUse(Root.class, xsdStream);
 		
 		when:
@@ -61,7 +56,7 @@ class JAXBUseSpec extends Specification {
 		given:
 		String expectedErrMsg = $/【致命的エラー】11行目 13文字目 内容:cvc-complex-type.4: 要素'property'に属性'key'が含まれている必要があります。/$;
 		InputStream xmlStream = new FileInputStream(new File(testDir, '003.xml'));
-		InputStream xsdStream = existResource.stream('.xsd');
+		InputStream xsdStream = ExchangeResource.stream(JAXBUseSpec.class, '.xsd');
 		JAXBUse parser = new JAXBUse(Root.class, xsdStream);
 		
 		when:
@@ -79,7 +74,7 @@ class JAXBUseSpec extends Specification {
 		// JAXBは、違反が二箇所にあってもエラーはひとつのみの模様
 		String expectedErrMsg = $/【致命的エラー】11行目 13文字目 内容:cvc-complex-type.4: 要素'property'に属性'key'が含まれている必要があります。/$;
 		InputStream xmlStream = new FileInputStream(new File(testDir, '004.xml'));
-		InputStream xsdStream = existResource.stream('.xsd');
+		InputStream xsdStream = ExchangeResource.stream(JAXBUseSpec.class, '.xsd');
 		JAXBUse parser = new JAXBUse(Root.class, xsdStream);
 		
 		when:

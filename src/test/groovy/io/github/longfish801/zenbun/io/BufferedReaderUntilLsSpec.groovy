@@ -6,9 +6,7 @@
 package io.github.longfish801.zenbun.io;
 
 import groovy.util.logging.Slf4j;
-
-import io.github.longfish801.shared.util.ClassDirectory;
-
+import io.github.longfish801.shared.lang.PackageDirectory;
 import spock.lang.Specification;
 import spock.lang.Unroll;
 
@@ -21,7 +19,7 @@ import spock.lang.Unroll;
 @Slf4j('LOG')
 class BufferedReaderUntilLsSpec extends Specification {
 	/** ファイル入出力のテスト用フォルダ */
-	private static final File testDir = new ClassDirectory('src/test/resources').getDeepDir(BufferedReaderUntilLsSpec.class);
+	private static final File testDir = PackageDirectory.deepDir(new File('src/test/resources'), BufferedReaderUntilLsSpec.class);
 	
 	@Unroll
 	def 'ファイル内容を正しく読みこめること'(){

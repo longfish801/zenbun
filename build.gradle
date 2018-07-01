@@ -12,7 +12,7 @@ configurations {
 
 dependencies {
 	compile 'ch.qos.logback:logback-classic:1.0.12'
-	compile 'io.github.longfish801:shared:0.1.00';
+	compile 'io.github.longfish801:shared:0.2.00';
 	compile 'org.apache.ant:ant:1.9.4';
 	compile 'org.apache.commons:commons-lang3:3.3.2';
 	compile 'org.codehaus.groovy:groovy-all:2.4.11';
