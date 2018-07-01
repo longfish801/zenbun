@@ -6,9 +6,7 @@
 package io.github.longfish801.zenbun.xml;
 
 import groovy.util.logging.Slf4j;
-
 import java.text.MessageFormat;
-
 import javax.xml.bind.DataBindingException;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
@@ -21,12 +19,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
-
-import io.github.longfish801.shared.lang.ExistResource;
-import io.github.longfish801.shared.util.ClassSlurper;
-
+import io.github.longfish801.shared.lang.ExchangeResource;
 import org.xml.sax.SAXException;
-
 import org.w3c.dom.Node;
 
 /**
@@ -38,7 +32,7 @@ import org.w3c.dom.Node;
 @Slf4j('LOG')
 class JAXBUse {
 	/** ConfigObject */
-	protected static final ConfigObject constants = ClassSlurper.getConfig(JAXBUse.class);
+	protected static final ConfigObject constants = ExchangeResource.config(JAXBUse.class);
 	/** Unmarshaller */
 	private Unmarshaller unmarshaller = null;
 	/** ValidationEventHandler */
@@ -57,8 +51,8 @@ class JAXBUse {
 		LOG.debug("clazz={}", clazz.simpleName);
 		Object obj = null;
 		try {
-			InputStream xmlStream = ExistResource.stream(clazz, '.xml');
-			InputStream xsdStream = ExistResource.stream(clazz, '.xsd');
+			InputStream xmlStream = ExchangeResource.stream(clazz, '.xml');
+			InputStream xsdStream = ExchangeResource.stream(clazz, '.xsd');
 			JAXBUse parser = new JAXBUse(clazz, xsdStream);
 			obj = parser.unmarshal(xmlStream);
 			if (parser.getErrorNum() > 0) {
