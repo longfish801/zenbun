@@ -19,7 +19,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
-import io.github.longfish801.shared.lang.ExchangeResource;
+import io.github.longfish801.shared.ExchangeResource;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Node;
 
@@ -32,7 +32,7 @@ import org.w3c.dom.Node;
 @Slf4j('LOG')
 class JAXBUse {
 	/** ConfigObject */
-	protected static final ConfigObject constants = ExchangeResource.config(JAXBUse.class);
+	static final ConfigObject cnst = ExchangeResource.config(JAXBUse.class);
 	/** Unmarshaller */
 	private Unmarshaller unmarshaller = null;
 	/** ValidationEventHandler */
@@ -147,13 +147,13 @@ class JAXBUse {
 			String typeStr = "";
 			switch (event.getSeverity()) {
 				case ValidationEvent.FATAL_ERROR:	// 致命的エラー（整形式制約違反）
-					typeStr = constants.ENUM_SCHEMAERRORTYPE_FATAL;
+					typeStr = cnst.ENUM_SCHEMAERRORTYPE_FATAL;
 					break;
 				case ValidationEvent.ERROR:	// エラー（妥当性制約違反）
-					typeStr = constants.ENUM_SCHEMAERRORTYPE_ERROR;
+					typeStr = cnst.ENUM_SCHEMAERRORTYPE_ERROR;
 					break;
 				case ValidationEvent.WARNING:	// 警告
-					typeStr = constants.ENUM_SCHEMAERRORTYPE_WARN;
+					typeStr = cnst.ENUM_SCHEMAERRORTYPE_WARN;
 					break;
 				default:
 					throw new InternalError("重要度コードが不正です。type=" + event.getSeverity());
@@ -161,7 +161,7 @@ class JAXBUse {
 			
 			// エラーメッセージを作成します
 			messages << MessageFormat.format(
-				constants.FORMAT_SCHEMAERROR_MESSAGE,
+				cnst.FORMAT_SCHEMAERROR_MESSAGE,
 				typeStr,
 				event.getLocator().getLineNumber(),
 				event.getLocator().getColumnNumber(),
