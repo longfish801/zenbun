@@ -5,7 +5,7 @@
  */
 package io.github.longfish801.zenbun;
 
-import io.github.longfish801.shared.lang.PackageDirectory;
+import io.github.longfish801.shared.PackageDirectory;
 import io.github.longfish801.zenbun.searchinfo.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ import org.slf4j.LoggerFactory;
  * @author io.github.longfish801
  */
 public class TestSearcher extends TestCase {
-	/** ログ出力インスタンス */
-	private static final Logger LOG = LoggerFactory.getLogger(TestSearcher.class);
 	/** ファイル入出力のテスト用フォルダ */
-	private static final File testDir = PackageDirectory.deepDir(new File('src/test/resources'), TestSearcher.class);
+	static final File testDir = PackageDirectory.deepDir('src/test/resources', TestSearcher.class);
+	/** ログ出力インスタンス */
+	static final Logger LOG = LoggerFactory.getLogger(TestSearcher.class);
 	
 	/**
 	 * コンストラクタ。

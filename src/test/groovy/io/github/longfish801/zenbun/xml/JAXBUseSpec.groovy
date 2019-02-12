@@ -6,9 +6,9 @@
 package io.github.longfish801.zenbun.xml;
 
 import groovy.util.logging.Slf4j;
-import io.github.longfish801.shared.lang.ExchangeResource;
-import io.github.longfish801.shared.lang.PackageDirectory;
-import io.github.longfish801.shared.xml.root.*;
+import io.github.longfish801.shared.ExchangeResource;
+import io.github.longfish801.shared.PackageDirectory;
+import io.github.longfish801.zenbun.xml.root.*;
 import org.w3c.dom.Document;
 import spock.lang.Specification;
 
@@ -21,7 +21,7 @@ import spock.lang.Specification;
 @Slf4j('LOG')
 class JAXBUseSpec extends Specification {
 	/** ファイル入出力のテスト用フォルダ */
-	private static final File testDir = PackageDirectory.deepDir(new File('src/test/resources'), JAXBUseSpec.class);
+	static final File testDir = PackageDirectory.deepDir('src/test/resources', JAXBUseSpec.class);
 	
 	def 'Documentを取得できること'(){
 		given:
