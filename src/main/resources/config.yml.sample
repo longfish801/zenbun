@@ -1,0 +1,16 @@
+# Zenbun Configuration File
+# このファイルは ~/.zenbun/config.yml に配置されます
+
+# 検索結果をダブルクリックしたときに実行するコマンド
+# 利用可能なパラメーター:
+#   ${filePath}: ファイルの絶対パス
+#   ${lineNo}: 行番号
+
+# macOS の例: エディタでファイルを開く
+command: "open -t '${filePath}'"
+
+# Linux の例
+# command: "gedit '${filePath}' +${lineNo}"
+
+# Windows の例
+# command: "notepad '${filePath}'"
