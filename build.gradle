@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group = 'com.example'
+group = 'io.github.longfish801'
 version = '1.0.0'
 
 sourceCompatibility = '1.8'
@@ -16,8 +16,7 @@ repositories {
 dependencies {
     // Groovy
     implementation 'org.codehaus.groovy:groovy-all:3.0.9'
-    
-    // Swing is part of Java standard library - no external dependency needed
+    implementation 'org.codehaus.groovy:groovy-yaml:3.0.7'
     
     // YAML
     implementation 'org.yaml:snakeyaml:1.33'
@@ -25,10 +24,14 @@ dependencies {
     // Testing
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+
+    // Logging
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'ch.qos.logback:logback-classic:1.2.11'
 }
 
 application {
-    mainClass = 'com.example.zenbun.App'
+    mainClass = 'io.github.longfish801.zenbun.App'
 }
 
 tasks.run.doFirst {

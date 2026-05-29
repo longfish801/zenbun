@@ -1,10 +1,17 @@
-package com.example.zenbun
+/*
+ * TextSearchEngine.groovy
+ *
+ * Copyright (C) io.github.longfish801 All Rights Reserved.
+ */
+package io.github.longfish801.zenbun
 
+import groovy.util.logging.Slf4j
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.regex.Pattern
 import java.util.ArrayList
 
+@Slf4j('LOG')
 class TextSearchEngine {
 
     ArrayList<SearchResult> search(String rootFolder, String keyword, boolean useRegex, boolean ignoreCase) {
@@ -17,7 +24,7 @@ class TextSearchEngine {
                 try {
                     searchInFile(file, pattern, results, ignoreCase)
                 } catch (Exception e) {
-                    // ファイル読み込みエラーはスキップ
+                    LOG.error("ファイル検索中にエラーが発生: {}", file.absolutePath, e)
                 }
             }
         }

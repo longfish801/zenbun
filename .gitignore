@@ -1,2 +1,18 @@
-.gradle
-build
+# Gradle
+.gradle/
+build/
+dist/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# User config
+.zenbun/
+
+# Test outputs
+*.log

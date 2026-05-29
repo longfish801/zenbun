@@ -1,5 +1,11 @@
-package com.example.zenbun
+/*
+ * ConfigManager.groovy
+ *
+ * Copyright (C) io.github.longfish801 All Rights Reserved.
+ */
+package io.github.longfish801.zenbun
 
+import groovy.util.logging.Slf4j
 import org.yaml.snakeyaml.Yaml
 import java.nio.file.Paths
 import java.nio.file.Files
@@ -28,14 +34,18 @@ class ConfigManager {
                 config = [:]
             }
         } catch (Exception e) {
+            
             config = [:]
         }
     }
     
     private void createDefaultConfig(File configFile) {
         configFile.parentFile.mkdirs()
-        configFile.text = """# Zenbun Configuration
-command: "open -t '\${filePath}'"
+        configFile.text = """### Zenbun Configuration
+# Open Command
+command: "open -t \${filePath}"
+# VSCode
+# command: "code -g \${filePath}:\${lineNo}"
 """
     }
     

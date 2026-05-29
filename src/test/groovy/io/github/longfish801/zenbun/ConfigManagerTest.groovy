@@ -1,4 +1,9 @@
-package com.example.zenbun
+/*
+ * ConfigManagerTest.groovy
+ *
+ * Copyright (C) io.github.longfish801 All Rights Reserved.
+ */
+package io.github.longfish801.zenbun
 
 import spock.lang.Specification
 
